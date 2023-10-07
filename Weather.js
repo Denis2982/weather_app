@@ -62,7 +62,7 @@ const weatherOptions = {
   
 };
 
-export default function Weather({ temp, condition, like, city, description, speed, humidity }) {
+export default function Weather({ temp, condition, like, city, description, speed, humidity, country }) {
   return (
     <ImageBackground
       source={weatherOptions[condition].imgSource}
@@ -70,6 +70,7 @@ export default function Weather({ temp, condition, like, city, description, spee
     >
       <View style={styles.header}>
         <Text style={styles.headerText}>{city}</Text>        
+        <Text style={styles.headerText}>{country}</Text>        
       </View>
       <View style={styles.mainSection}>
         <Text style={styles.description}>{description}</Text>
@@ -119,7 +120,8 @@ const styles = StyleSheet.create({
   },
   header:{
     flex: 1,
-        
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   headerText:{
     color: "white",
