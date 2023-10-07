@@ -13,13 +13,25 @@ export default class extends React.Component {
     isLoading: true,
   };
 
+  // https://api.openweathermap.org/data/2.5/weather?lat=49.915&lon=35.55028&appid=3a3b263487223dba791502461c12d8ea&units=metric
+
   getWeather = async (latitude, longitude) => {
-    const { data: {main: {temp}, weather}} = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);         
-    this.setState({ 
-      isLoading: false, 
-      temp: temp, 
-      condition: weather[0].main, 
+    const {
+      data: {
+        main: { temp, feels_like },
+        weather,
+        name,
+      },
+    } = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=ru`
+    );
+    this.setState({
+      isLoading: false,
+      temp: temp,
+      like: feels_like,
+      condition: weather[0].main,
+      description: weather[0].description,
+      city: name,
     });
   };
 
@@ -30,7 +42,6 @@ export default class extends React.Component {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
       this.getWeather(latitude, longitude);
-      
     } catch (error) {
       Alert.alert("Невозможно определить местоположение");
     }
@@ -40,10 +51,18 @@ export default class extends React.Component {
     this.getLocation();
   }
 
-  render () {
-    const {isLoading, temp, condition} = this.state;
-    return (
-      isLoading ? <Loading /> : <Weather  temp={Math.round(temp)} condition={condition} />
-      );
+  render() {
+    const { isLoading, temp, like, condition, description, city } = this.state;
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <Weather
+        temp={Math.round(temp)}
+        like={Math.round(like)}
+        condition={condition}
+        description={description}
+        city={city}
+      />
+    );
   }
 }
