@@ -5,69 +5,64 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { StatusBar } from "expo-status-bar";
 
 const weatherOptions = {
-  Thunderstorm: {
-    title: "Гроза",
-    imgSource: require("./assets/thunderstorm.jpg"),
+  "01d": {    
+    imgSource: require("./assets/01d.jpg"),
   },
-  Clear: {
-    title: "Ясно",
-    imgSource: require("./assets/clear.jpg"),
+  "01n": {    
+    imgSource: require("./assets/01n.jpg"),
   },
-  Drizzle: {
-    title: "Морось",
-    imgSource: require("./assets/drizzle.jpg"),
+  "02d": {    
+    imgSource: require("./assets/02d.jpg"),
   },
-  Rain: {
-    title: "Дождь",
-    imgSource: require("./assets/rain.jpg"),
+  "02n": {    
+    imgSource: require("./assets/02n.jpg"),
   },
-  Snow: {
-    title: "Снег",
-    imgSource: require("./assets/snow.jpg"),
+  "03d": {    
+    imgSource: require("./assets/03d.jpg"),
   },
-  Mist: {
-    title: "Туман",
-    imgSource: require("./assets/mist.jpg"),
+  "03n": {    
+    imgSource: require("./assets/02n.jpg"),
   },
-  Smoke: {
-    title: "Дымка",
-    imgSource: require("./assets/smoke.jpg"),
+  "04d": {    
+    imgSource: require("./assets/04d.jpg"),
   },
-  Haze: {
-    title: "Туман",
-    imgSource: require("./assets/mist.jpg"),
+  "04n": {    
+    imgSource: require("./assets/04n.jpg"),
   },
-  Dust: {
-    title: "Пыль",
-    imgSource: require("./assets/dust.jpg"),
+  "09d": {    
+    imgSource: require("./assets/09d.jpg"),
   },
-  Fog: {
-    title: "Туман",
-    imgSource: require("./assets/mist.jpg"),
+  "09n": {    
+    imgSource: require("./assets/09d.jpg"),
   },
-  Sand: {
-    title: "Пыль",
-    imgSource: require("./assets/dust.jpg"),
+  "10d": {    
+    imgSource: require("./assets/09d.jpg"),
   },
-  Ash: {
-    title: "Пыль",
-    imgSource: require("./assets/dust.jpg"),
+  "10n": {    
+    imgSource: require("./assets/09d.jpg"),
   },
-  Squall: {
-    title: "Шквал",
-    imgSource: require("./assets/squall.jpg"),
+  "11d": {    
+    imgSource: require("./assets/11d.jpg"),
   },
-  Tornado: {
-    title: "Торнадо",
-    imgSource: require("./assets/tornado.jpg"),
+  "11n": {    
+    imgSource: require("./assets/11n.jpg"),
   },
-  Clouds: {
-    title: "Облачно",
-    imgSource: require("./assets/clouds.jpg"),
+  "13d": {    
+    imgSource: require("./assets/13d.jpg"),
   },
+  "13n": {    
+    imgSource: require("./assets/13n.jpg"),
+  },
+  "50d": {    
+    imgSource: require("./assets/50d.jpg"),
+  },
+  "50n": {    
+    imgSource: require("./assets/50n.jpg"),
+  },
+  
 };
 
-export default function Weather({ temp, condition, like, city, description }) {
+export default function Weather({ temp, condition, like, city, description, speed, humidity }) {
   return (
     <ImageBackground
       source={weatherOptions[condition].imgSource}
@@ -83,10 +78,8 @@ export default function Weather({ temp, condition, like, city, description }) {
 
       </View>
       <View style={styles.paramSection}>
-        <Text style={styles.title}></Text>
-        <Text style={styles.subtitle}>
-          {weatherOptions[condition].subtitle}
-        </Text>
+        <Text style={styles.paramText}>Скорость ветра  {speed}м/с</Text>
+        <Text style={styles.paramText}>Влажность  {humidity}%</Text>
       </View>
       <StatusBar style="light" />
     </ImageBackground>
@@ -98,21 +91,24 @@ Weather.propTypes = {
   city: PropTypes.string.isRequired,
   like: PropTypes.number.isRequired,
   condition: PropTypes.oneOf([
-    "Thunderstorm",
-    "Drizzle",
-    "Rain",
-    "Snow",
-    "Mist",
-    "Smoke",
-    "Haze",
-    "Fog",
-    "Sand",
-    "Dust",
-    "Ash",
-    "Squall",
-    "Tornado",
-    "Clear",
-    "Clouds",
+    "01d",
+    "01n",
+    "02d",
+    "02n",
+    "03d",
+    "03n",
+    "04d",
+    "04n",
+    "09d",
+    "09n",
+    "10d",
+    "10n",
+    "11d",
+    "11n",
+    "13d",
+    "13n",
+    "50d",
+    "50n",    
   ]).isRequired,
 };
 
@@ -128,8 +124,9 @@ const styles = StyleSheet.create({
   headerText:{
     color: "white",
     fontSize: 20,
-    fontWeight: "300",
-    paddingTop: '15%'
+    fontWeight: "500",
+    paddingTop: '15%',
+    letterSpacing: 1.2,
   },
   mainSection:{
     flex: 2,
@@ -146,26 +143,29 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "400",
     marginBottom: 10,
+    textTransform: 'capitalize',
   },
   temp: {
     fontSize: 50,
     color: "white",
     fontWeight: "600",
+    marginBottom: 10,
   },
   tempLike:{
     color: "white",
     fontSize: 20,
     fontWeight: "400",
   },
-  title: {
+  paramText: {
     color: "white",
-    fontSize: 40,
-    fontWeight: "300",
+    fontSize: 20,
+    fontWeight: "400",
     marginBottom: 10,
+    letterSpacing: 1.1,
   },
   subtitle: {
     color: "white",
-    fontWeight: "600",
+    fontWeight: "400",
   },
   
 });
